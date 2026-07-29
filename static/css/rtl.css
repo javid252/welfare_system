@@ -1,0 +1,39 @@
+/* RTL-specific overrides for Persian UI */
+
+html, body {
+    direction: rtl;
+    text-align: right;
+    font-family: "Vazirmatn", "Tahoma", sans-serif;
+}
+
+.sidebar {
+    min-width: 240px;
+    max-width: 240px;
+}
+
+.app-body {
+    min-height: calc(100vh - 56px);
+}
+
+.nav-pills .nav-link {
+    text-align: right;
+    color: #333;
+}
+
+.nav-pills .nav-link.router-link-active,
+.nav-pills .nav-link.router-link-exact-active {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.table th, .table td {
+    text-align: right;
+}
+
+.form-select, .form-control {
+    text-align: right;
+}
+
+[v-cloak] {
+    display: none;
+}

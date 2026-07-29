@@ -1,0 +1,64 @@
+/* General styling */
+
+body {
+    background-color: #f5f6fa;
+}
+
+.login-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d6efd11, #19875411);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    border: none;
+    border-radius: 16px;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.metric-card {
+    border-right: 4px solid;
+    border-radius: 10px;
+}
+
+.metric-card.border-primary { border-right-color: #0d6efd !important; }
+.metric-card.border-success { border-right-color: #198754 !important; }
+.metric-card.border-info { border-right-color: #0dcaf0 !important; }
+.metric-card.border-warning { border-right-color: #ffc107 !important; }
+
+.badge { font-weight: 500; }
+
+/* Jalali date-picker */
+.jalali-datepicker-popup {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 1050;
+    width: 280px;
+    border-radius: 10px;
+}
+.jalali-grid th {
+    font-size: 0.75rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+.jalali-day-btn {
+    border: none;
+    background: transparent;
+    padding: 0.35rem 0;
+}
+.jalali-day-btn:hover {
+    background-color: #e9ecef;
+}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}داشبورد | سامانه رفاهی{% endblock %}
+
+{% block body %}
+<div id="app" v-cloak>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+        <span class="navbar-brand">سامانه مدیریت عملکرد و توزیع عادلانه رفاهی</span>
+        <div class="d-flex align-items-center text-white gap-3">
+            <span class="small">{{ employee.get_full_name|default:employee.username }} — {{ employee.get_role_display }}</span>
+            <a href="{% url 'core:logout' %}" class="btn btn-sm btn-outline-light">خروج</a>
+        </div>
+    </nav>
+
+    <div class="d-flex app-body">
+        <aside class="sidebar bg-light border-start p-3">
+            <ul class="nav nav-pills flex-column gap-1">
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/" exact>خلاصه عملکرد من</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/activities">ثبت و تاریخچه فعالیت</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/tasks">وظایف من</router-link>
+                </li>
+
+                {% if is_supervisor_or_above %}
+                <li class="nav-item mt-3"><span class="text-muted small px-2">مدیریت تیم</span></li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/team">عملکرد تیم</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/approvals">تایید ضرایب پیچیدگی</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/audit-queue">صف ممیزی کیفیت</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/assign-task">تخصیص وظیفه</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/heatmap">نقشه حرارتی استانی</router-link>
+                </li>
+                {% endif %}
+
+                {% if is_admin %}
+                <li class="nav-item mt-3"><span class="text-muted small px-2">مدیریت سامانه</span></li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/admin/services">کاتالوگ خدمات</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/admin/employees">کارمندان</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/admin/distribution">اجرای توزیع رفاهی</router-link>
+                </li>
+                {% endif %}
+            </ul>
+        </aside>
+
+        <main class="content flex-grow-1 p-4">
+            <router-view></router-view>
+        </main>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    window.CURRENT_USER = {
+        id: {{ employee.id }},
+        role: "{{ role }}",
+        isAdmin: {{ is_admin|yesno:"true,false" }},
+        isSupervisorOrAbove: {{ is_supervisor_or_above|yesno:"true,false" }},
+    };
+</script>
+<script src="{% static 'js/api.js' %}"></script>
+<script src="{% static 'js/jalali.js' %}"></script>
+<script src="{% static 'js/persian.js' %}"></script>
+<script src="{% static 'js/components/JalaliDatePicker.js' %}"></script>
+<script src="{% static 'js/components/EmployeeSummary.js' %}"></script>
+<script src="{% static 'js/components/ActivityForm.js' %}"></script>
+<script src="{% static 'js/components/TaskList.js' %}"></script>
+<script src="{% static 'js/components/TeamPerformance.js' %}"></script>
+<script src="{% static 'js/components/Approvals.js' %}"></script>
+<script src="{% static 'js/components/AuditQueue.js' %}"></script>
+<script src="{% static 'js/components/AssignTask.js' %}"></script>
+<script src="{% static 'js/components/Heatmap.js' %}"></script>
+<script src="{% static 'js/components/AdminServices.js' %}"></script>
+<script src="{% static 'js/components/AdminEmployees.js' %}"></script>
+<script src="{% static 'js/components/AdminDistribution.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock %}

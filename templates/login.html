@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}ورود به سامانه{% endblock %}
+
+{% block body %}
+<div id="login-app" class="login-wrapper d-flex align-items-center justify-content-center">
+    <div class="card login-card shadow-lg">
+        <div class="card-body p-4">
+            <div class="text-center mb-4">
+                <h4 class="fw-bold mb-1">سامانه مدیریت عملکرد و توزیع عادلانه رفاهی</h4>
+                <p class="text-muted small mb-0">وزارت تعاون، کار و رفاه اجتماعی</p>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger py-2">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" @submit="onSubmit" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">نام کاربری</label>
+                    <input type="text" name="username" v-model="username" class="form-control"
+                           :class="{'is-invalid': submitted && !username}" required>
+                    <div class="invalid-feedback">نام کاربری را وارد کنید.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">رمز عبور</label>
+                    <input type="password" name="password" v-model="password" class="form-control"
+                           :class="{'is-invalid': submitted && !password}" required>
+                    <div class="invalid-feedback">رمز عبور را وارد کنید.</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">ورود</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+new Vue({
+    el: "#login-app",
+    data: { username: "", password: "", submitted: false },
+    methods: {
+        onSubmit(e) {
+            this.submitted = true;
+            if (!this.username || !this.password) {
+                e.preventDefault();
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
